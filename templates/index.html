@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BasketIQ | Market Basket Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 9.5 16 4l10 5.5v13L16 28 6 22.5z" fill="none" stroke="currentColor" stroke-width="2"/><path d="m6.5 9.5 9.5 5.7 9.5-5.7M16 15.2V27" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="9" r="2.1" fill="currentColor"/></svg></span>
+        <span><strong>BasketIQ</strong><small>RETAIL INTELLIGENCE</small></span>
+      </a>
+      <div class="nav-label">WORKSPACE</div>
+      <a class="nav-item active" href="#overview"><span>▦</span> Overview</a>
+      <a class="nav-item" href="#analysis"><span>⌘</span> Run analysis</a>
+      <a class="nav-item" href="#itemsets"><span>▥</span> Frequent itemsets</a>
+      <a class="nav-item" href="#rules"><span>⇄</span> Association rules</a>
+      <a class="nav-item" href="#insights"><span>✦</span> Business insights</a>
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <div class="help-icon">✦</div>
+          <strong>Turn baskets into growth</strong>
+          <p>Discover which products customers buy together.</p>
+          <a href="#analysis">Start exploring <span>↗</span></a>
+        </div>
+        <div class="sidebar-foot"><span class="status-dot"></span> Local analysis workspace</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="crumbs">Workspace <span>/</span> <b>Market Basket Analysis</b></div>
+        <div class="topbar-right"><span class="live-dot"></span><span>Analysis environment ready</span><div class="avatar">BI</div></div>
+      </header>
+
+      <section class="page-heading" id="overview">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> CUSTOMER PURCHASE INTELLIGENCE</div>
+          <h1>Market Basket <span>Analysis</span></h1>
+          <p>Uncover product relationships. Build smarter bundles. Grow every basket.</p>
+        </div>
+        <button class="button button-primary" id="runTopBtn"><span>▶</span> Run analysis</button>
+      </section>
+
+      <section class="metric-grid" aria-label="Analysis summary">
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Transactions analyzed</span><span class="metric-icon icon-blue">▤</span></div>
+          <div class="metric-value" id="transactionMetric">—</div><div class="metric-note">Unique customer baskets</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Unique products</span><span class="metric-icon icon-violet">◈</span></div>
+          <div class="metric-value" id="productMetric">—</div><div class="metric-note">Distinct products discovered</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Frequent itemsets</span><span class="metric-icon icon-green">▥</span></div>
+          <div class="metric-value" id="itemsetMetric">—</div><div class="metric-note">Patterns above support threshold</div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span class="metric-label">Association rules</span><span class="metric-icon icon-orange">⇄</span></div>
+          <div class="metric-value" id="ruleMetric">—</div><div class="metric-note">Rules matching your filters</div>
+        </article>
+      </section>
+
+      <section class="panel analysis-panel" id="analysis">
+        <div class="section-heading">
+          <div><div class="section-kicker">CONFIGURATION</div><h2>Analysis setup</h2><p>Choose your data and tune the pattern discovery settings.</p></div>
+          <span class="pill pill-neutral"><span class="pill-dot"></span> Ready to analyze</span>
+        </div>
+        <form id="analysisForm">
+          <div class="form-grid">
+            <div class="field field-wide">
+              <label for="csvFile">Transaction dataset</label>
+              <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">↑</div>
+                <div class="upload-copy"><strong id="uploadTitle">Upload your transaction CSV</strong><span id="uploadSubtitle">CSV with transaction_id and product columns, or use the sample dataset</span></div>
+                <label class="button button-outline upload-button" for="csvFile">Browse files</label>
+                <input type="file" id="csvFile" name="file" accept=".csv,text/csv">
+              </div>
+              <div class="dataset-footer"><span><span class="status-dot"></span> Sample grocery dataset included</span><a href="/api/sample-csv">Download sample CSV ↗</a></div>
+            </div>
+            <div class="field">
+              <label for="algorithm">Mining algorithm</label>
+              <select id="algorithm" name="algorithm"><option>Apriori</option><option>FP-Growth</option></select>
+              <small>FP-Growth can be faster on larger datasets.</small>
+            </div>
+            <div class="field">
+              <label for="minSupport">Minimum support <b id="supportValue">10%</b></label>
+              <input type="range" id="minSupport" name="min_support" min="0.01" max="0.50" step="0.01" value="0.10">
+              <div class="range-labels"><span>1% · More patterns</span><span>50% · Fewer patterns</span></div>
+            </div>
+            <div class="field">
+              <label for="minConfidence">Minimum confidence <b id="confidenceValue">30%</b></label>
+              <input type="range" id="minConfidence" name="min_confidence" min="0.05" max="1" step="0.05" value="0.30">
+              <div class="range-labels"><span>5% · More rules</span><span>100% · Stricter</span></div>
+            </div>
+            <div class="field">
+              <label for="minLift">Minimum lift <b id="liftValue">1.00×</b></label>
+              <input type="range" id="minLift" name="min_lift" min="0.5" max="5" step="0.1" value="1">
+              <div class="range-labels"><span>0.5×</span><span>5.0× · Stronger link</span></div>
+            </div>
+          </div>
+          <div class="form-actions"><div class="form-hint"><span>ⓘ</span> Results depend on the quality and size of your transaction data.</div><button class="button button-primary button-large" type="submit" id="analyzeBtn"><span>✦</span> Analyze transactions <span>→</span></button></div>
+        </form>
+      </section>
+
+      <div class="results-heading">
+        <div><div class="section-kicker">DISCOVERY RESULTS</div><h2>Pattern explorer</h2><p id="resultSubtitle">Run an analysis to reveal frequent products and buying relationships.</p></div>
+        <span class="pill pill-purple" id="algorithmPill">Awaiting analysis</span>
+      </div>
+
+      <section class="charts-grid">
+        <article class="panel chart-panel" id="itemsets">
+          <div class="panel-heading"><div><h3>Most frequent itemsets</h3><p>Product combinations ranked by transaction support</p></div><span class="chart-tag">SUPPORT</span></div>
+          <div class="chart-wrap"><canvas id="itemsetChart"></canvas><div class="chart-empty" id="itemsetChartEmpty"><span>▥</span><strong>Itemset chart appears here</strong><small>Run analysis to see the most frequent combinations.</small></div></div>
+        </article>
+        <article class="panel chart-panel" id="rules">
+          <div class="panel-heading"><div><h3>Strongest associations</h3><p>Rules ranked by lift score</p></div><span class="chart-tag tag-orange">LIFT</span></div>
+          <div class="chart-wrap"><canvas id="ruleChart"></canvas><div class="chart-empty" id="ruleChartEmpty"><span>⇄</span><strong>Association chart appears here</strong><small>Run analysis to compare product relationships.</small></div></div>
+        </article>
+      </section>
+
+      <section class="panel table-panel">
+        <div class="panel-heading table-title"><div><h3>Association rules</h3><p>Understand what customers are likely to buy together.</p></div><button class="button button-outline button-small" id="exportRules" disabled>↓ Export rules CSV</button></div>
+        <div class="table-scroll">
+          <table><thead><tr><th>IF CUSTOMER BUYS</th><th>ALSO BUYS</th><th>SUPPORT</th><th>CONFIDENCE</th><th>LIFT</th><th>STRENGTH</th></tr></thead><tbody id="rulesTable"><tr><td colspan="6" class="empty-cell">No results yet. Run your first analysis to populate this table.</td></tr></tbody></table>
+        </div>
+        <div class="table-footer"><span id="rulesCount">Showing 0 rules</span><span>Support · Confidence · Lift</span></div>
+      </section>
+
+      <section class="insights-section" id="insights">
+        <div class="results-heading insight-heading"><div><div class="section-kicker">NEXT BEST ACTIONS</div><h2>Business insights</h2><p>Translate product associations into practical cross-selling experiments.</p></div><span class="insight-spark">✦</span></div>
+        <div class="insight-grid" id="insightGrid"><article class="insight-card insight-placeholder"><div class="insight-number">01</div><div><h3>Discover a cross-sell opportunity</h3><p>Run an analysis to generate data-driven suggestions for bundles, recommendations, and promotions.</p></div></article></div>
+        <div class="insight-disclaimer">Insights are generated from association patterns in the selected dataset. Validate recommendations with margin, inventory, and controlled experiments before making business decisions.</div>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="panel-heading"><div><h3>Recent analysis history</h3><p>Your latest runs saved in the local database.</p></div><button class="button button-outline button-small" id="refreshHistory">↻ Refresh</button></div>
+        <div class="table-scroll"><table><thead><tr><th>DATE & TIME</th><th>DATA SOURCE</th><th>ALGORITHM</th><th>TRANSACTIONS</th><th>ITEMSETS</th><th>RULES</th></tr></thead><tbody id="historyTable"><tr><td colspan="6" class="empty-cell">Loading analysis history…</td></tr></tbody></table></div>
+      </section>
+      <footer class="footer"><span><b>BasketIQ</b> · Market Basket Analysis</span><span>Built with Flask, pandas & mlxtend</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
