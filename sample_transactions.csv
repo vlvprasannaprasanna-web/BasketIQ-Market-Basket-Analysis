@@ -1,0 +1,121 @@
+transaction_id,product
+T001,Bread
+T001,Milk
+T001,Butter
+T002,Bread
+T002,Milk
+T002,Eggs
+T003,Bread
+T003,Butter
+T003,Jam
+T004,Milk
+T004,Cereal
+T004,Bananas
+T005,Bread
+T005,Milk
+T005,Butter
+T006,Pasta
+T006,Tomato Sauce
+T006,Cheese
+T007,Pasta
+T007,Tomato Sauce
+T007,Garlic Bread
+T008,Coffee
+T008,Milk
+T008,Biscuits
+T009,Coffee
+T009,Biscuits
+T009,Sugar
+T010,Bread
+T010,Milk
+T010,Butter
+T011,Bread
+T011,Eggs
+T011,Cheese
+T012,Milk
+T012,Cereal
+T012,Bananas
+T013,Pasta
+T013,Tomato Sauce
+T013,Cheese
+T014,Coffee
+T014,Milk
+T014,Biscuits
+T015,Bread
+T015,Milk
+T015,Butter
+T016,Bread
+T016,Jam
+T016,Butter
+T017,Rice
+T017,Lentils
+T017,Cooking Oil
+T018,Rice
+T018,Lentils
+T018,Spices
+T019,Rice
+T019,Cooking Oil
+T019,Spices
+T020,Apples
+T020,Bananas
+T020,Yogurt
+T021,Apples
+T021,Yogurt
+T021,Granola
+T022,Bread
+T022,Milk
+T022,Butter
+T023,Pasta
+T023,Tomato Sauce
+T023,Cheese
+T024,Coffee
+T024,Biscuits
+T024,Milk
+T025,Bread
+T025,Eggs
+T025,Cheese
+T026,Milk
+T026,Cereal
+T026,Bananas
+T027,Rice
+T027,Lentils
+T027,Cooking Oil
+T028,Apples
+T028,Bananas
+T028,Yogurt
+T029,Coffee
+T029,Biscuits
+T029,Sugar
+T030,Bread
+T030,Milk
+T030,Butter
+T031,Pasta
+T031,Tomato Sauce
+T031,Cheese
+T032,Bread
+T032,Butter
+T032,Jam
+T033,Coffee
+T033,Milk
+T033,Biscuits
+T034,Rice
+T034,Lentils
+T034,Spices
+T035,Apples
+T035,Bananas
+T035,Yogurt
+T036,Bread
+T036,Milk
+T036,Butter
+T037,Milk
+T037,Cereal
+T037,Bananas
+T038,Pasta
+T038,Tomato Sauce
+T038,Cheese
+T039,Coffee
+T039,Biscuits
+T039,Sugar
+T040,Rice
+T040,Lentils
+T040,Cooking Oil
